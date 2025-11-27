@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5311257758816196067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 280410899719675256}
+  - component: {fileID: 2783741460580034278}
+  m_Layer: 0
+  m_Name: Star_NovaLointaine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &280410899719675256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311257758816196067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2783741460580034278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311257758816196067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4710c26ed82cec5409908f1053748532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Generator
+  id: STAR_3
+  displayName: Nova Lointaine
+  baseProductionPerSecond: 18
+  BaseProdUpgrade: 1000
+  baseCost: 400
+  costMultiplier: 1.08
+  unlockAtStardust: 2500
+  starSprite: {fileID: -3182291448082469536, guid: 9953161a422139442a74b8eea2071583, type: 3}
+  starColor: {r: 0.9, g: 0.6, b: 1, a: 1}
+  glowColor: {r: 0.9, g: 0.5, b: 1, a: 1}
+  glowSpeedMultiplier: 1.35
+  weakMilestoneInterval: 25
+  weakMilestoneMultiplier: 1.7
+  strongMilestoneInterval: 100
+  strongMilestoneMultiplier: 3.4
+  level: 0

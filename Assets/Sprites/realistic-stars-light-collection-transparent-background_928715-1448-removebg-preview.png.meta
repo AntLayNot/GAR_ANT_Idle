@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: 9953161a422139442a74b8eea2071583
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2516058278615235330
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_0
+  - first:
+      213: -2560659338429825033
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_1
+  - first:
+      213: -1402415135959724077
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_2
+  - first:
+      213: 5449040255140368109
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_3
+  - first:
+      213: 3478234197195651991
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_4
+  - first:
+      213: -5071127127932964235
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_5
+  - first:
+      213: -4313481596097378025
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_6
+  - first:
+      213: -3285463306583811963
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_7
+  - first:
+      213: -7878527647555216134
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_8
+  - first:
+      213: 460576433765418540
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_9
+  - first:
+      213: 1749425543206525934
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_10
+  - first:
+      213: -179572725921609735
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_11
+  - first:
+      213: -2436221046267999592
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_12
+  - first:
+      213: -3182291448082469536
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_13
+  - first:
+      213: -257210613381108740
+    second: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_0
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 441
+        width: 104
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef445f4835a251dd0800000000000000
+      internalID: -2516058278615235330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_1
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 444
+        width: 103
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ff7a1e06e5b67cd0800000000000000
+      internalID: -2560659338429825033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_2
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 436
+        width: 104
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3df4d793dde998ce0800000000000000
+      internalID: -1402415135959724077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_3
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 342
+        width: 56
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dee0276ed31ee9b40800000000000000
+      internalID: 5449040255140368109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_4
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 348
+        width: 60
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79b7679e29b254030800000000000000
+      internalID: 3478234197195651991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_5
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 341
+        width: 56
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57275b0cebcbf99b0800000000000000
+      internalID: -5071127127932964235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_6
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 251
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7194e67975f6324c0800000000000000
+      internalID: -4313481596097378025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_7
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 245
+        width: 67
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 588dd70a780b762d0800000000000000
+      internalID: -3285463306583811963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_8
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 247
+        width: 103
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc9066c8d8d9a290800000000000000
+      internalID: -7878527647555216134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_9
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 155
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c26018683db446600800000000000000
+      internalID: 460576433765418540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_10
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 146
+        width: 60
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eebd1df3345374810800000000000000
+      internalID: 1749425543206525934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_11
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 148
+        width: 59
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f70814ae87028df0800000000000000
+      internalID: -179572725921609735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_12
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 52
+        width: 67
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89a8dd6bdddc03ed0800000000000000
+      internalID: -2436221046267999592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_13
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 56
+        width: 76
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06de749d9ca36d3d0800000000000000
+      internalID: -3182291448082469536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_14
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 58
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfb65f45f443e6cf0800000000000000
+      internalID: -257210613381108740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_0: -2516058278615235330
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_1: -2560659338429825033
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_10: 1749425543206525934
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_11: -179572725921609735
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_12: -2436221046267999592
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_13: -3182291448082469536
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_14: -257210613381108740
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_2: -1402415135959724077
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_3: 5449040255140368109
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_4: 3478234197195651991
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_5: -5071127127932964235
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_6: -4313481596097378025
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_7: -3285463306583811963
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_8: -7878527647555216134
+      realistic-stars-light-collection-transparent-background_928715-1448-removebg-preview_9: 460576433765418540
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
