@@ -45,11 +45,14 @@ public class Generator : MonoBehaviour
         if (level <= 0) return 0;
 
 
-        double baseUpgrade = baseProductionPerSecond * BaseProdUpgrade / 100;   // Multiplicateur %
-        double baseProd = baseUpgrade * level;
-        double milestoneMult = GetMilestoneMultiplier();
+        double perLevelProduction = baseProductionPerSecond * (1.0 + BaseProdUpgrade / 100.0);
+        double linearProduction = perLevelProduction * level;
 
-        return baseProd * milestoneMult;
+        // Les paliers restent intéressants mais on atténue l'exponentielle avec un logarithme.
+        double milestoneMult = GetMilestoneMultiplier();
+        double dampenedMilestone = 1.0 + Math.Log10(1.0 + milestoneMult);
+
+        return linearProduction * dampenedMilestone;
     }
 
     /// <summary>
