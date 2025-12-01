@@ -136,6 +136,48 @@ public class Generator : MonoBehaviour
         return false;
     }
 
+    public int TryBuyLevels(int count)
+    {
+        int bought = 0;
+
+        // On essaie d'acheter "count" niveaux maximum,
+        // mais on s'arrête si on n'a plus assez de stardust.
+        for (int i = 0; i < count; i++)
+        {
+            if (!TryBuyLevel()) // utilise ta logique existante (coût, stardust, etc.)
+                break;
+
+            bought++;
+        }
+
+        return bought; // combien de niveaux ont vraiment été achetés
+    }
+
+    public int TryBuyMaxLevels()
+    {
+        int bought = 0;
+
+        while (true)
+        {
+            double cost = GetNextLevelCost();
+            if (GameManager.Instance.stardust < cost)
+                break;
+
+            // Achat du niveau
+            if (!TryBuyLevel())
+                break;
+
+            bought++;
+
+            // Sécurité : évite les boucles infinies (en cas de bug)
+            if (bought > 1000000)
+                break;
+        }
+
+        return bought;
+    }
+
+
     /// <summary>
     /// Déblocage basé sur le total de poussière gagnée (totalStardustEarned).
     /// </summary>

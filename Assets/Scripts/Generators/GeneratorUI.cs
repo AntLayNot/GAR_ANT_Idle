@@ -13,7 +13,12 @@ public class GeneratorUI : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text productionText;
     public TMP_Text costText;
-    public Button buyButton;
+    public Button buyButton;              // <-- bouton principal "Acheter"
+
+    [Header("Buy Mode Dropdown")]
+    public TMP_Dropdown buyModeDropdown;
+
+    private int currentBuyAmount = 1;
 
     [Header("Visuel")]
     public Image starImage;
@@ -29,7 +34,13 @@ public class GeneratorUI : MonoBehaviour
     public Color upgradeStarInactiveColor = new Color(0.3f, 0.3f, 0.35f); // gris
     public Color upgradeStarOrangeColor = new Color(1.0f, 0.7f, 0.2f);   // orange
     public Color upgradeStarRedColor = new Color(1.0f, 0.2f, 0.2f);   // rouge
-    public Color upgradeStarGoldColor = new Color(1.0f, 0.85f, 0.2f);  // doré (1000+)
+
+    [Header("Tier Colors (par 1000 niveaux)")]
+    public Color tierYellowColor = new Color(1.0f, 0.85f, 0.2f);   // 1000–4000
+    public Color tierPurpleColor = new Color(0.8f, 0.4f, 1.0f);    // 4000–8000
+    public Color tierBlueColor = new Color(0.3f, 0.6f, 1.0f);    // 8000–12000
+    public Color tierGreenColor = new Color(0.4f, 1.0f, 0.6f);    // 12000–16000
+    public Color tierPinkColor = new Color(1.0f, 0.4f, 0.8f);    // 16000+
 
     [Header("Upgrade Rank Indicator (petites étoiles)")]
     public List<Image> rankStars;  // petites étoiles en haut à droite
@@ -47,8 +58,16 @@ public class GeneratorUI : MonoBehaviour
 
     private void Start()
     {
+        // Bouton "Acheter"
         if (buyButton != null)
             buyButton.onClick.AddListener(OnBuyClicked);
+
+        // Dropdown x1 / x10 / x25 / x100 / xMax
+        if (buyModeDropdown != null)
+        {
+            buyModeDropdown.onValueChanged.AddListener(OnBuyModeChanged);
+            OnBuyModeChanged(buyModeDropdown.value); // initialise le mode
+        }
 
         if (generator != null)
         {
@@ -144,7 +163,7 @@ public class GeneratorUI : MonoBehaviour
             costText.text = $"Coût : {NumberFormatter.Format(cost)}";
         }
 
-        // Étoiles d'upgrade (25 / 100 / cycles / 1000+ doré)
+        // Étoiles d'upgrade (25 / 100 / cycles)
         UpdateUpgradeStars();
 
         // Effet sonore pour le tier 1000+
@@ -155,21 +174,65 @@ public class GeneratorUI : MonoBehaviour
     {
         if (generator == null) return;
 
-        if (!generator.TryBuyLevel())
+        int bought = 0;
+
+        if (currentBuyAmount == -1)
         {
-            Debug.Log("Pas assez de poussière d'étoile pour acheter ce niveau.");
+            // Mode xMax
+            bought = generator.TryBuyMaxLevels();
+        }
+        else
+        {
+            bought = generator.TryBuyLevels(currentBuyAmount);
+        }
+
+        if (bought <= 0)
+        {
+            Debug.Log("Pas assez de poussière d'étoile pour acheter ces niveaux.");
         }
 
         Refresh();
     }
 
+    private void OnBuyModeChanged(int index)
+    {
+        switch (index)
+        {
+            case 0: // x1
+                currentBuyAmount = 1;
+                break;
+
+            case 1: // x10
+                currentBuyAmount = 10;
+                break;
+
+            case 2: // x25
+                currentBuyAmount = 25;
+                break;
+
+            case 3: // x100
+                currentBuyAmount = 100;
+                break;
+
+            case 4: // xMax
+                currentBuyAmount = -1; // -1 = mode MAX
+                break;
+
+            default:
+                currentBuyAmount = 1;
+                break;
+        }
+
+        Debug.Log("Buy mode = " + currentBuyAmount);
+    }
+
     /// <summary>
-    /// Indicateur visuel des paliers :
+    /// Indicateur visuel des paliers locaux :
     /// - 4 grosses étoiles.
     /// - Tous les 25 niveaux : +1 orange (dans la centaine courante).
     /// - Tous les 100 niveaux : +1 rouge (centaines complètes dans la boucle locale).
     /// - Les petites étoiles indiquent les cycles de 4 centaines.
-    /// - À 1000+ : la première grosse étoile devient dorée.
+    /// - Ensuite, une surcouche par 1000 niveaux vient recolorer les premières étoiles.
     /// </summary>
     private void UpdateUpgradeStars()
     {
@@ -179,7 +242,9 @@ public class GeneratorUI : MonoBehaviour
         int level = generator.level;
         int starCount = upgradeStars.Count;
 
-        // 🔴 Total de centaines complètes depuis le début (100, 200, 300, ...)
+        // ---------- LOGIQUE LOCALE (25 / 100) ----------
+
+        // Total de centaines complètes depuis le début (100, 200, 300, ...)
         int totalHundreds = level / 100;
 
         // On découpe en "cycles" de starCount centaines (par exemple 4)
@@ -207,18 +272,11 @@ public class GeneratorUI : MonoBehaviour
         int maxOrangeSlots = starCount - localHundreds;
         orangeCount = Mathf.Clamp(orangeCount, 0, maxOrangeSlots);
 
-        // --- Grosses étoiles : dorée (1000+), rouges, oranges, grises ---
+        // --- Grosses étoiles : rouge / orange / gris (base) ---
         for (int i = 0; i < starCount; i++)
         {
             var img = upgradeStars[i];
             if (img == null) continue;
-
-            // 🌟 Première étoile dorée si niveau >= 1000
-            if (i == 0 && generator.level >= 1000)
-            {
-                img.color = upgradeStarGoldColor;
-                continue;
-            }
 
             if (i < localHundreds)
             {
@@ -239,6 +297,73 @@ public class GeneratorUI : MonoBehaviour
 
         // --- Petites étoiles de rang (cycles complets déjà passés) ---
         UpdateRankStars(cycles);
+
+        // ---------- SURCOUCHE PAR 1000 NIVEAUX ----------
+        ApplyThousandTierColors(level);
+    }
+
+    /// <summary>
+    /// Recolore les premières étoiles en fonction des paliers de 1000 :
+    /// - 1000–4000 : les étoiles se complètent en jaune (1 par 1000).
+    /// - 4000–8000 : même principe en violet.
+    /// - 8000–12000 : même principe en bleu.
+    /// - 12000–16000 : même principe en vert.
+    /// - 16000+ : même principe en rose.
+    /// </summary>
+    private void ApplyThousandTierColors(int level)
+    {
+        if (upgradeStars == null || upgradeStars.Count == 0)
+            return;
+
+        int starCount = upgradeStars.Count;
+
+        // Combien de milliers complets ?
+        int tierIndex = level / 1000; // 0,1,2,3,...
+
+        if (tierIndex <= 0)
+            return; // en-dessous de 1000, pas de surcouche
+
+        // Chaque phase utilise starCount paliers (1000 * starCount niveaux)
+        // Ex : avec 4 étoiles => 4 * 1000 = 4000 niveaux par phase
+        int phaseSize = starCount;
+
+        // Phase : 0 = jaune, 1 = violet, 2 = bleu, 3 = vert, 4+ = rose
+        int phaseIndex = (tierIndex - 1) / phaseSize;
+
+        // Nombre d'étoiles remplies dans cette phase (1..4)
+        int fillCount = (tierIndex - 1) % phaseSize + 1;
+        fillCount = Mathf.Clamp(fillCount, 1, starCount);
+
+        // Sélection de la couleur de phase
+        Color phaseColor;
+        switch (phaseIndex)
+        {
+            case 0:
+                phaseColor = tierYellowColor;   // 1000–4000
+                break;
+            case 1:
+                phaseColor = tierPurpleColor;   // 4000–8000
+                break;
+            case 2:
+                phaseColor = tierBlueColor;     // 8000–12000
+                break;
+            case 3:
+                phaseColor = tierGreenColor;    // 12000–16000
+                break;
+            default:
+                phaseColor = tierPinkColor;     // 16000+
+                break;
+        }
+
+        // On recolore les premières étoiles avec la couleur de phase
+        for (int i = 0; i < starCount; i++)
+        {
+            var img = upgradeStars[i];
+            if (img == null) continue;
+
+            if (i < fillCount)
+                img.color = phaseColor;
+        }
     }
 
     /// <summary>
@@ -280,7 +405,7 @@ public class GeneratorUI : MonoBehaviour
                 sfxSource.PlayOneShot(goldTierSfx);
             }
 
-            Debug.Log($"[GeneratorUI] Tier doré atteint pour {generator.displayName} (niveau {generator.level}).");
+            Debug.Log($"[GeneratorUI] Tier de milliers atteint pour {generator.displayName} (niveau {generator.level}).");
         }
         else if (!isGoldTierReached)
         {
@@ -291,12 +416,19 @@ public class GeneratorUI : MonoBehaviour
 
     public void SetLockedState(bool locked)
     {
+        // Désactive le bouton d'achat principal
         if (buyButton != null)
             buyButton.interactable = !locked;
 
+        // Désactive le dropdown (x1 / x10 / x25 / x100 / max)
+        if (buyModeDropdown != null)
+            buyModeDropdown.interactable = !locked;
+
+        // Rend visuellement le panel grisé / normal
         if (canvasGroup != null)
             canvasGroup.alpha = locked ? 0.4f : 1f;
 
+        // Affiche ou masque le texte "Débloqué à XXX"
         if (lockedText != null)
             lockedText.gameObject.SetActive(locked);
     }
