@@ -45,11 +45,14 @@ public class Generator : MonoBehaviour
         if (level <= 0) return 0;
 
 
-        double baseUpgrade = baseProductionPerSecond * BaseProdUpgrade / 100;   // Multiplicateur %
-        double baseProd = baseUpgrade * level;
-        double milestoneMult = GetMilestoneMultiplier();
+        double perLevelProduction = baseProductionPerSecond * (1.0 + BaseProdUpgrade / 100.0);
+        double linearProduction = perLevelProduction * level;
 
-        return baseProd * milestoneMult;
+        // Les paliers restent intéressants mais on atténue l'exponentielle avec un logarithme.
+        double milestoneMult = GetMilestoneMultiplier();
+        double dampenedMilestone = 1.0 + Math.Log10(1.0 + milestoneMult);
+
+        return linearProduction * dampenedMilestone;
     }
 
     /// <summary>
@@ -135,6 +138,48 @@ public class Generator : MonoBehaviour
 
         return false;
     }
+
+    public int TryBuyLevels(int count)
+    {
+        int bought = 0;
+
+        // On essaie d'acheter "count" niveaux maximum,
+        // mais on s'arrête si on n'a plus assez de stardust.
+        for (int i = 0; i < count; i++)
+        {
+            if (!TryBuyLevel()) // utilise ta logique existante (coût, stardust, etc.)
+                break;
+
+            bought++;
+        }
+
+        return bought; // combien de niveaux ont vraiment été achetés
+    }
+
+    public int TryBuyMaxLevels()
+    {
+        int bought = 0;
+
+        while (true)
+        {
+            double cost = GetNextLevelCost();
+            if (GameManager.Instance.stardust < cost)
+                break;
+
+            // Achat du niveau
+            if (!TryBuyLevel())
+                break;
+
+            bought++;
+
+            // Sécurité : évite les boucles infinies (en cas de bug)
+            if (bought > 1000000)
+                break;
+        }
+
+        return bought;
+    }
+
 
     /// <summary>
     /// Déblocage basé sur le total de poussière gagnée (totalStardustEarned).

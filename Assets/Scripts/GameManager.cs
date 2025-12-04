@@ -113,6 +113,42 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Saved.");
     }
 
+    public void ResetGame()
+    {
+        stardust = 0;
+        totalStardustEarned = 0;
+
+        foreach (var gen in generators)
+        {
+            if (gen == null) continue;
+            gen.level = 0;
+
+            string levelKey = $"ASTRAL_GEN_{gen.id}_LEVEL";
+            PlayerPrefs.DeleteKey(levelKey);
+        }
+
+        if (GlobalUpgradeManager.Instance != null)
+        {
+            foreach (var upg in GlobalUpgradeManager.Instance.upgrades)
+            {
+                if (upg == null) continue;
+                upg.level = 0;
+
+                string upgradeKey = $"ASTRAL_UPG_{upg.id}_LEVEL";
+                PlayerPrefs.DeleteKey(upgradeKey);
+            }
+
+            GlobalUpgradeManager.Instance.RecomputeMultipliers();
+        }
+
+        PlayerPrefs.DeleteKey(StardustKey);
+        PlayerPrefs.DeleteKey(TotalStardustEarnedKey);
+        PlayerPrefs.DeleteKey(LastSaveKey);
+        PlayerPrefs.Save();
+    }
+
+
+
     private void LoadGame()
     {
         // Chargement de la currency actuelle
@@ -147,7 +183,15 @@ public class GameManager : MonoBehaviour
             {
                 gen.level = PlayerPrefs.GetInt(levelKey, 0);
             }
+            else
+            {
+                // s'il n'y a PAS de sauvegarde pour ce générateur, niveau 0.
+                gen.level = 0;
+            }
         }
+
+
+
 
         // Offline progress
         if (PlayerPrefs.HasKey(LastSaveKey))
