@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Currency")]
     public double stardust = 0;              // Poussière d'étoile actuelle
     public double totalStardustEarned = 0;   // Total de poussière gagnée depuis le début
+    public double  totalPerSecond = 0;       // Poussières générée par /s
 
     [Header("All Generators in the Scene")]
     public List<Generator> generators = new List<Generator>();
@@ -37,7 +39,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        double totalPerSecond = 0;
 
         foreach (var gen in generators)
         {
@@ -58,7 +59,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void OnApplicationQuit()
     {
         SaveGame();
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     public void AddStardust(double amount)
     {
         if (amount <= 0) return; // on ne compte que le gain positif dans le total
-
+        
         stardust += amount;
         totalStardustEarned += amount;
 
@@ -115,8 +115,9 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
-        stardust = 0;
+        stardust = 10;
         totalStardustEarned = 0;
+        totalPerSecond = 0;
 
         foreach (var gen in generators)
         {

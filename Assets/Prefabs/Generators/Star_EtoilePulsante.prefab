@@ -50,7 +50,7 @@ MonoBehaviour:
   BaseProdUpgrade: 1000
   baseCost: 75
   costMultiplier: 1.08
-  unlockAtStardust: 500
+  unlockAtStardust: 10000
   starSprite: {fileID: 1749425543206525934, guid: 9953161a422139442a74b8eea2071583, type: 3}
   starColor: {r: 0.6, g: 0.8, b: 1, a: 1}
   glowColor: {r: 0.5, g: 0.7, b: 1, a: 1}
