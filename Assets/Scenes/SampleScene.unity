@@ -1863,7 +1863,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1334445618}
   m_HandleRect: {fileID: 1334445617}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2219,9 +2219,30 @@ MonoBehaviour:
     maxLevel: 1000
     valuePerLevel: 0.05
     level: 0
+  - id: UPG_SYNERGY_1
+    displayName: Synergie Stellaire
+    description: "+2% de production par \xE9toile d\xE9bloqu\xE9e."
+    type: 3
+    baseCost: 50000000
+    costMultiplier: 2
+    maxLevel: 10
+    valuePerLevel: 0.02
+    level: 0
+  - id: UPG_CONSTELLATION_1
+    displayName: "Ch\u0153urs de Constellations"
+    description: "+5% de production par palier de 100 niveaux pour chaque \xE9toile."
+    type: 4
+    baseCost: 1000000000000
+    costMultiplier: 1.5
+    maxLevel: 1000
+    valuePerLevel: 0.05
+    level: 0
   globalProductionMultiplier: 1
   offlineGainMultiplier: 1
   generatorCostReductionMultiplier: 1
+  synergyPerGenerator: 0
+  constellationTierBonus: 0
+  singularityMultiplier: 1
 --- !u!1 &957710020
 GameObject:
   m_ObjectHideFlags: 0
@@ -3757,7 +3778,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2105345927}
   m_HandleRect: {fileID: 2105345926}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4308,7 +4329,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.1
+  m_fontSize: 42.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

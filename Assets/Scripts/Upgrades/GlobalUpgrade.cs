@@ -5,7 +5,11 @@ public enum GlobalUpgradeType
 {
     GlobalProduction,      // Multiplie toute la production
     OfflineGain,           // Multiplie les gains offline
-    GeneratorCostReduction // Réduit le coût des générateurs
+    GeneratorCostReduction,// Réduction du coût des générateurs
+
+    GeneratorSynergy,      // 💫 +X% de prod par générateur débloqué
+    ConstellationBoost,    // ✨ +Y% par tier (palier de 100) du générateur
+    SingularityCore        // 🌀 multiplicateur lié au prestige
 }
 
 [Serializable]

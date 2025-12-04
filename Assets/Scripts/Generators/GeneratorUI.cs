@@ -149,19 +149,61 @@ public class GeneratorUI : MonoBehaviour
         if (levelText != null)
             levelText.text = $"Niveau : {generator.level}";
 
-        // Production
+        // Production (incluant le multiplicateur global)
         if (productionText != null)
         {
-            double prod = generator.GetProductionPerSecond();
-            productionText.text = $"Production : {NumberFormatter.Format(prod)} /s";
+            // Prod locale (base + milestones)
+            double baseProd = generator.GetProductionPerSecond();
+
+            // Multiplicateur global (upgrades)
+            double globalMult = 1.0;
+            if (GlobalUpgradeManager.Instance != null)
+                globalMult = GlobalUpgradeManager.Instance.globalProductionMultiplier;
+
+            // Prod effective réelle
+            double effectiveProd = baseProd * globalMult;
+
+            productionText.text = $"Production : {NumberFormatter.Format(effectiveProd)} /s";
         }
 
-        // Coût
+
+        // Coût (en fonction du mode d'achat)
         if (costText != null)
         {
-            double cost = generator.GetNextLevelCost();
-            costText.text = $"Coût : {NumberFormatter.Format(cost)}";
+            if (currentBuyAmount == -1)
+            {
+                // Mode xMax : on calcule combien de niveaux on peut acheter
+                double available = GameManager.Instance != null ? GameManager.Instance.stardust : 0.0;
+                int maxLevels = generator.GetMaxAffordableLevels(available);
+
+                if (maxLevels > 0)
+                {
+                    double totalCost = generator.GetCostForLevels(maxLevels);
+                    costText.text = $"Coût (Max x{maxLevels}) : {NumberFormatter.Format(totalCost)}";
+                }
+                else
+                {
+                    // Rien d'achetable
+                    costText.text = "Coût (Max) : 0";
+                }
+            }
+            else
+            {
+                // Mode x1 / x10 / x25 / x100
+                int packSize = Mathf.Max(1, currentBuyAmount);
+                double totalCost = generator.GetCostForLevels(packSize);
+
+                if (packSize == 1)
+                {
+                    costText.text = $"Coût : {NumberFormatter.Format(totalCost)}";
+                }
+                else
+                {
+                    costText.text = $"Coût (x{packSize}) : {NumberFormatter.Format(totalCost)}";
+                }
+            }
         }
+
 
         // Étoiles d'upgrade (25 / 100 / cycles)
         UpdateUpgradeStars();
@@ -224,6 +266,8 @@ public class GeneratorUI : MonoBehaviour
         }
 
         Debug.Log("Buy mode = " + currentBuyAmount);
+
+        Refresh();
     }
 
     /// <summary>

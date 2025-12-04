@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalUpgradeManager : MonoBehaviour
@@ -8,10 +8,14 @@ public class GlobalUpgradeManager : MonoBehaviour
     [Header("Liste des upgrades globales")]
     public List<GlobalUpgrade> upgrades = new List<GlobalUpgrade>();
 
-    [Header("Multiplicateurs appliqu�s au jeu")]
+    [Header("Multiplicateurs appliqués au jeu")]
     public double globalProductionMultiplier = 1.0;
     public double offlineGainMultiplier = 1.0;
     public double generatorCostReductionMultiplier = 1.0; // <= 1 (ex: 0.95 = -5%)
+
+    public double synergyPerGenerator = 0.0;      // ex : 0.02 = +2% par générateur débloqué
+    public double constellationTierBonus = 0.0;   // ex : 0.05 = +5% par tier de 100
+    public double singularityMultiplier = 1.0;    // multiplicateur ultime
 
     private void Awake()
     {
@@ -36,11 +40,15 @@ public class GlobalUpgradeManager : MonoBehaviour
         offlineGainMultiplier = 1.0;
         generatorCostReductionMultiplier = 1.0;
 
+        synergyPerGenerator = 0.0;
+        constellationTierBonus = 0.0;
+        singularityMultiplier = 1.0;
+
         foreach (var upg in upgrades)
         {
             if (upg == null || upg.level <= 0) continue;
 
-            double totalValue = upg.GetCurrentValue(); // ex: 0.5 pour +50%
+            double totalValue = upg.GetCurrentValue(); // valuePerLevel * level
 
             switch (upg.type)
             {
@@ -53,14 +61,28 @@ public class GlobalUpgradeManager : MonoBehaviour
                     break;
 
                 case GlobalUpgradeType.GeneratorCostReduction:
-                    // Ici on applique une r�duction cumul�e (ex: -10% puis -10%)
-                    // On convertit le totalValue en r�duction : valuePerLevel = 0.05 => -5% par niveau.
                     double reduction = totalValue;
                     generatorCostReductionMultiplier *= (1.0 - reduction);
+                    break;
+
+                // Generator Synergy : on stocke un pourcentage "par générateur"
+                case GlobalUpgradeType.GeneratorSynergy:
+                    synergyPerGenerator += totalValue; // ex: +0.02, +0.04, etc.
+                    break;
+
+                // Constellation Boost : bonus par tier de 100
+                case GlobalUpgradeType.ConstellationBoost:
+                    constellationTierBonus += totalValue; // ex : +0.05
+                    break;
+
+                // Singularity Core : multiplicateur final
+                case GlobalUpgradeType.SingularityCore:
+                    singularityMultiplier *= (1.0 + totalValue);
                     break;
             }
         }
     }
+
 
     // Sauvegarde des niveaux des upgrades
     public void SaveUpgrades()

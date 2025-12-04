@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,9 @@ public class GameManager : MonoBehaviour
     [Header("Currency")]
     public double stardust = 0;              // Poussière d'étoile actuelle
     public double totalStardustEarned = 0;   // Total de poussière gagnée depuis le début
-    public double  totalPerSecond = 0;       // Poussières générée par /s
+
+    [Header("Production (debug / UI)")]
+    public double totalPerSecond = 0;        // Production totale effective (avec tous les multiplicateurs)
 
     [Header("All Generators in the Scene")]
     public List<Generator> generators = new List<Generator>();
@@ -39,20 +40,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // On calcule la production totale /s avec tous les multiplicateurs
+        double effectivePerSecond = ComputeTotalProductionPerSecond();
 
-        foreach (var gen in generators)
-        {
-            if (gen != null)
-                totalPerSecond += gen.GetProductionPerSecond();
-        }
+        // Stocké pour l'UI
+        totalPerSecond = effectivePerSecond;
 
-        double globalProdMult = 1.0;
-        if (GlobalUpgradeManager.Instance != null)
-            globalProdMult = GlobalUpgradeManager.Instance.globalProductionMultiplier;
-
-        double effectivePerSecond = totalPerSecond * globalProdMult;
+        // Gain pour cette frame
         double deltaGain = effectivePerSecond * Time.deltaTime;
-
         if (deltaGain > 0)
         {
             AddStardust(deltaGain);
@@ -64,16 +59,22 @@ public class GameManager : MonoBehaviour
         SaveGame();
     }
 
+    /// <summary>
+    /// Ajoute de la poussière d'étoile, met à jour le total gagné.
+    /// </summary>
     public void AddStardust(double amount)
     {
         if (amount <= 0) return; // on ne compte que le gain positif dans le total
-        
+
         stardust += amount;
         totalStardustEarned += amount;
 
         if (stardust < 0) stardust = 0;
     }
 
+    /// <summary>
+    /// Tente de dépenser de la poussière d'étoile.
+    /// </summary>
     public bool SpendStardust(double amount)
     {
         if (stardust >= amount)
@@ -85,6 +86,9 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Sauvegarde la monnaie, les niveaux de générateurs et la date de sauvegarde.
+    /// </summary>
     public void SaveGame()
     {
         // Sauvegarde de la monnaie actuelle
@@ -105,6 +109,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString(LastSaveKey, ticks.ToString());
 
         PlayerPrefs.Save();
+
+        // Sauvegarde des upgrades globales
         if (GlobalUpgradeManager.Instance != null)
         {
             GlobalUpgradeManager.Instance.SaveUpgrades();
@@ -113,21 +119,28 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Saved.");
     }
 
+    /// <summary>
+    /// Reset complet de la progression (monnaie, niveaux, upgrades, PlayerPrefs).
+    /// NE reset pas la structure du GameManager (DontDestroyOnLoad).
+    /// </summary>
     public void ResetGame()
     {
-        stardust = 10;
+        stardust = 0;
         totalStardustEarned = 0;
         totalPerSecond = 0;
 
+        // Reset niveaux des générateurs en mémoire + suppression des clés
         foreach (var gen in generators)
         {
             if (gen == null) continue;
+
             gen.level = 0;
 
             string levelKey = $"ASTRAL_GEN_{gen.id}_LEVEL";
             PlayerPrefs.DeleteKey(levelKey);
         }
 
+        // Reset des upgrades globales
         if (GlobalUpgradeManager.Instance != null)
         {
             foreach (var upg in GlobalUpgradeManager.Instance.upgrades)
@@ -142,22 +155,25 @@ public class GameManager : MonoBehaviour
             GlobalUpgradeManager.Instance.RecomputeMultipliers();
         }
 
+        // Reset des autres clés de currency / temps
         PlayerPrefs.DeleteKey(StardustKey);
         PlayerPrefs.DeleteKey(TotalStardustEarnedKey);
         PlayerPrefs.DeleteKey(LastSaveKey);
         PlayerPrefs.Save();
+
+        Debug.Log("[GameManager] Reset du jeu effectué.");
     }
 
-
-
+    /// <summary>
+    /// Chargement de la progression (monnaie, générateurs, offline, upgrades globales).
+    /// </summary>
     private void LoadGame()
     {
         // Chargement de la currency actuelle
         if (PlayerPrefs.HasKey(StardustKey))
         {
             string value = PlayerPrefs.GetString(StardustKey, "0");
-            double parsed;
-            if (double.TryParse(value, out parsed))
+            if (double.TryParse(value, out double parsed))
             {
                 stardust = parsed;
             }
@@ -167,8 +183,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey(TotalStardustEarnedKey))
         {
             string value = PlayerPrefs.GetString(TotalStardustEarnedKey, "0");
-            double parsed;
-            if (double.TryParse(value, out parsed))
+            if (double.TryParse(value, out double parsed))
             {
                 totalStardustEarned = parsed;
             }
@@ -186,41 +201,39 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // s'il n'y a PAS de sauvegarde pour ce générateur, niveau 0.
+                // Si aucune sauvegarde n'existe pour ce générateur, on force à 0
                 gen.level = 0;
             }
         }
 
-
-
+        // Chargement des upgrades globales AVANT de calculer l'offline
+        if (GlobalUpgradeManager.Instance != null)
+        {
+            GlobalUpgradeManager.Instance.LoadUpgrades();
+        }
 
         // Offline progress
         if (PlayerPrefs.HasKey(LastSaveKey))
         {
             string ticksStr = PlayerPrefs.GetString(LastSaveKey, "0");
-            long ticks;
-            if (long.TryParse(ticksStr, out ticks))
+            if (long.TryParse(ticksStr, out long ticks))
             {
                 DateTime lastSave = new DateTime(ticks, DateTimeKind.Utc);
                 TimeSpan delta = DateTime.UtcNow - lastSave;
 
                 double secondsAway = Math.Max(0, delta.TotalSeconds);
 
-                double totalPerSecond = 0;
-                foreach (var gen in generators)
-                {
-                    if (gen != null)
-                        totalPerSecond += gen.GetProductionPerSecond();
-                }
+                // Production totale effective /s (avec milestones + upgrades globales)
+                double effectivePerSecond = ComputeTotalProductionPerSecond();
 
-                double offlineGain = totalPerSecond * secondsAway;
+                double offlineGain = effectivePerSecond * secondsAway;
 
-                // applique le multiplicateur d'upgrade offline
-                double offlineMult = 1.0;
+                // Applique le multiplicateur d'upgrade offline
                 if (GlobalUpgradeManager.Instance != null)
-                    offlineMult = GlobalUpgradeManager.Instance.offlineGainMultiplier;
-
-                offlineGain *= offlineMult;
+                {
+                    double offlineMult = GlobalUpgradeManager.Instance.offlineGainMultiplier;
+                    offlineGain *= offlineMult;
+                }
 
                 if (offlineGain > 0)
                 {
@@ -230,10 +243,70 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"Offline gain: +{offlineGain} stardust (away {secondsAway} s)");
             }
         }
-        if (GlobalUpgradeManager.Instance != null)
+    }
+
+    /// <summary>
+    /// Calcule la production totale /s de tous les générateurs,
+    /// en incluant :
+    /// - prod de base + milestones (dans Generator.GetProductionPerSecond())
+    /// - bonus de constellation (par tier de 100)
+    /// - synergie par générateur débloqué
+    /// - multiplicateur global
+    /// - multiplicateur Singularity (endgame)
+    /// </summary>
+    public double ComputeTotalProductionPerSecond()
+    {
+        double sumPerSecond = 0.0;
+        int unlockedCount = 0;
+
+        foreach (var gen in generators)
         {
-            GlobalUpgradeManager.Instance.LoadUpgrades();
+            if (gen == null) continue;
+
+            if (gen.IsUnlocked())
+                unlockedCount++;
+
+            // Production de base du générateur (incluant milestones)
+            double prod = gen.GetProductionPerSecond();
+
+            // Bonus de constellation : +X% par tier de 100 niveaux
+            if (GlobalUpgradeManager.Instance != null)
+            {
+                double constBonus = GlobalUpgradeManager.Instance.constellationTierBonus;
+                if (constBonus > 0)
+                {
+                    int tier = gen.GetUpgradeTier(); // ex : 1 pour 100+, 2 pour 200+, etc.
+                    if (tier > 0)
+                    {
+                        prod *= (1.0 + constBonus * tier);
+                    }
+                }
+            }
+
+            sumPerSecond += prod;
         }
 
+        // Multiplicateurs globaux
+        double globalMult = 1.0;
+        double synergyMult = 1.0;
+        double singularityMult = 1.0;
+
+        if (GlobalUpgradeManager.Instance != null)
+        {
+            globalMult = GlobalUpgradeManager.Instance.globalProductionMultiplier;
+
+            // Synergie : +X% par générateur débloqué
+            double perGen = GlobalUpgradeManager.Instance.synergyPerGenerator;
+            if (perGen > 0 && unlockedCount > 0)
+            {
+                synergyMult += perGen * unlockedCount;
+            }
+
+            // Singularity Core (endgame)
+            singularityMult = GlobalUpgradeManager.Instance.singularityMultiplier;
+        }
+
+        double effectivePerSecond = sumPerSecond * globalMult * synergyMult * singularityMult;
+        return effectivePerSecond;
     }
 }

@@ -50,7 +50,7 @@ MonoBehaviour:
   BaseProdUpgrade: 1000
   baseCost: 2000
   costMultiplier: 1.08
-  unlockAtStardust: 500000
+  unlockAtStardust: 2500000
   starSprite: {fileID: -2516058278615235330, guid: 9953161a422139442a74b8eea2071583, type: 3}
   starColor: {r: 0.7, g: 1, b: 0.8, a: 1}
   glowColor: {r: 0.6, g: 1, b: 0.8, a: 1}
@@ -59,4 +59,6 @@ MonoBehaviour:
   weakMilestoneMultiplier: 1.7
   strongMilestoneInterval: 100
   strongMilestoneMultiplier: 3.4
+  megaMilestoneInterval: 1000
+  megaMilestoneMultiplier: 10
   level: 0

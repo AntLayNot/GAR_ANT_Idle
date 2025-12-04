@@ -59,4 +59,6 @@ MonoBehaviour:
   weakMilestoneMultiplier: 1.7
   strongMilestoneInterval: 100
   strongMilestoneMultiplier: 3.4
-  level: 1
+  megaMilestoneInterval: 1000
+  megaMilestoneMultiplier: 10
+  level: 9223

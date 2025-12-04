@@ -34,6 +34,13 @@ public class Generator : MonoBehaviour
     [Tooltip("Multiplicateur appliqué à chaque palier fort.")]
     public double strongMilestoneMultiplier = 3.4;
 
+    [Tooltip("Tous les X niveaux, un bonus ultime est appliqué (1000 par défaut).")]
+    public int megaMilestoneInterval = 1000;
+
+    [Tooltip("Multiplicateur appliqué à chaque palier ultime (1000+).")]
+    public double megaMilestoneMultiplier = 10.0;
+
+
     [Header("État actuel")]
     public int level = 0;
 
@@ -42,18 +49,20 @@ public class Generator : MonoBehaviour
     /// </summary>
     public double GetProductionPerSecond()
     {
-        if (level <= 0) return 0;
+        if (level <= 0) return 0.0;
 
+        // Prod linéaire de base
+        double baseProd = baseProductionPerSecond * level;
 
-        double perLevelProduction = baseProductionPerSecond * (1.0 + BaseProdUpgrade / 100.0);
-        double linearProduction = perLevelProduction * level;
-
-        // Les paliers restent intéressants mais on atténue l'exponentielle avec un logarithme.
+        // Multiplicateurs de milestones (25 / 100 / 1000, etc.)
         double milestoneMult = GetMilestoneMultiplier();
-        double dampenedMilestone = 1.0 + Math.Log10(1.0 + milestoneMult);
 
-        return linearProduction * dampenedMilestone;
+        // Prod finale du générateur
+        double finalProd = baseProd * milestoneMult;
+
+        return finalProd;
     }
+
 
     /// <summary>
     /// Calcule le multiplicateur de production en fonction des paliers atteints.
@@ -65,24 +74,27 @@ public class Generator : MonoBehaviour
     {
         if (level <= 0) return 1.0;
 
-        int weakCount = GetWeakMilestoneCount();
-        int strongCount = GetStrongMilestoneCount();
+        int weakCount = GetWeakMilestoneCount();   // tous les 25
+        int strongCount = GetStrongMilestoneCount(); // tous les 100
+        int megaCount = GetMegaMilestoneCount();   // tous les 1000
 
-        // Interprétation :
-        // weakMilestoneMultiplier = 0.7  => +70% par palier de 25
-        // strongMilestoneMultiplier = 3.4 => +340% par palier de 100
         double mult = 1.0;
 
-        // bonus faible
+        // bonus faible (25)
         if (weakCount > 0)
             mult *= Math.Pow(1.0 + weakMilestoneMultiplier, weakCount);
 
-        // bonus fort
+        // bonus fort (100)
         if (strongCount > 0)
             mult *= Math.Pow(1.0 + strongMilestoneMultiplier, strongCount);
 
+        // bonus méga (1000)
+        if (megaCount > 0)
+            mult *= Math.Pow(1.0 + megaMilestoneMultiplier, megaCount);
+
         return mult;
     }
+
 
 
     public int GetWeakMilestoneCount()
@@ -96,6 +108,14 @@ public class Generator : MonoBehaviour
         if (strongMilestoneInterval <= 0) return 0;
         return level / strongMilestoneInterval;
     }
+
+    public int GetMegaMilestoneCount()
+    {
+        if (megaMilestoneInterval <= 0) return 0;
+        return level / megaMilestoneInterval;
+    }
+
+
 
     /// <summary>
     /// Niveau global d'amélioration pour l’affichage (basé sur les paliers forts).
@@ -111,16 +131,102 @@ public class Generator : MonoBehaviour
     /// </summary>
     public double GetNextLevelCost()
     {
+        // Formule de base (adapte à ta version)
         double cost = baseCost * Math.Pow(costMultiplier, level);
 
         if (GlobalUpgradeManager.Instance != null)
         {
             double reductionMult = GlobalUpgradeManager.Instance.generatorCostReductionMultiplier;
-            cost *= reductionMult; // ex: 0.9 => -10%
+            cost *= reductionMult;
+        }
+
+        // 🔒 Sécurité anti-overflow
+        if (double.IsNaN(cost) || double.IsInfinity(cost))
+        {
+            // On considère que c'est trop cher / endgame
+            return double.MaxValue / 2.0;
         }
 
         return cost;
     }
+
+
+    /// <summary>
+    /// Coût total pour acheter "count" niveaux de plus à partir du niveau actuel.
+    /// </summary>
+    public double GetCostForLevels(int count)
+    {
+        if (count <= 0) return 0;
+
+        double total = 0;
+        int tempLevel = level;
+
+        for (int i = 0; i < count; i++)
+        {
+            double cost = baseCost * Math.Pow(costMultiplier, tempLevel);
+
+            if (GlobalUpgradeManager.Instance != null)
+            {
+                double reductionMult = GlobalUpgradeManager.Instance.generatorCostReductionMultiplier;
+                cost *= reductionMult;
+            }
+
+            // Si ce palier part déjà en NaN/Inf → on arrête ici
+            if (double.IsNaN(cost) || double.IsInfinity(cost))
+            {
+                total = double.PositiveInfinity;
+                break;
+            }
+
+            total += cost;
+            tempLevel++;
+
+            // Et on coupe court si la somme devient trop grosse
+            if (double.IsInfinity(total))
+            {
+                total = double.PositiveInfinity;
+                break;
+            }
+        }
+
+        return total;
+    }
+
+
+    /// <summary>
+    /// Combien de niveaux on peut acheter au maximum avec une certaine quantité de poussière ?
+    /// </summary>
+    public int GetMaxAffordableLevels(double availableStardust)
+    {
+        int tempLevel = level;
+        int bought = 0;
+        double remaining = availableStardust;
+
+        while (true)
+        {
+            double cost = baseCost * Math.Pow(costMultiplier, tempLevel);
+
+            if (GlobalUpgradeManager.Instance != null)
+            {
+                double reductionMult = GlobalUpgradeManager.Instance.generatorCostReductionMultiplier;
+                cost *= reductionMult;
+            }
+
+            if (remaining < cost)
+                break;
+
+            remaining -= cost;
+            tempLevel++;
+            bought++;
+
+            // Sécurité anti-boucle infinie
+            if (bought > 1_000_000)
+                break;
+        }
+
+        return bought;
+    }
+
 
 
     /// <summary>
