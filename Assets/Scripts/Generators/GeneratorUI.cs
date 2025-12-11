@@ -33,21 +33,12 @@ public class GeneratorUI : MonoBehaviour
     public List<Image> upgradeStars; // grosses étoiles
     public Color upgradeStarInactiveColor = new Color(0.3f, 0.3f, 0.35f); // gris
     public Color upgradeStarOrangeColor = new Color(1.0f, 0.7f, 0.2f);   // orange
-<<<<<<< Updated upstream
     public Color upgradeStarRedColor = new Color(1.0f, 0.2f, 0.2f);     // rouge
 
     [Header("Tier Colors (par 1000 niveaux)")]
     public Color tierYellowColor = new Color(1.0f, 0.85f, 0.2f);     // 1000–4000
     public Color tierPurpleColor = new Color(0.8f, 0.4f, 1.0f);     // 4000–8000
     public Color tierBlueColor = new Color(0.3f, 0.6f, 1.0f);      // 8000–12000
-=======
-    public Color upgradeStarRedColor = new Color(1.0f, 0.2f, 0.2f);   // rouge
-
-    [Header("Tier Colors (par 1000 niveaux)")]
-    public Color tierYellowColor = new Color(1.0f, 0.85f, 0.2f);   // 1000–4000
-    public Color tierPurpleColor = new Color(0.8f, 0.4f, 1.0f);    // 4000–8000
-    public Color tierBlueColor = new Color(0.3f, 0.6f, 1.0f);    // 8000–12000
->>>>>>> Stashed changes
     public Color tierGreenColor = new Color(0.4f, 1.0f, 0.6f);    // 12000–16000
     public Color tierPinkColor = new Color(1.0f, 0.4f, 0.8f);    // 16000+
 
@@ -213,10 +204,7 @@ public class GeneratorUI : MonoBehaviour
             }
         }
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
         // Étoiles d'upgrade (25 / 100 / cycles)
         UpdateUpgradeStars();
 
@@ -278,11 +266,8 @@ public class GeneratorUI : MonoBehaviour
         }
 
         Debug.Log("Buy mode = " + currentBuyAmount);
-<<<<<<< Updated upstream
 
         Refresh();
-=======
->>>>>>> Stashed changes
     }
 
     /// <summary>
@@ -313,11 +298,7 @@ public class GeneratorUI : MonoBehaviour
         if (totalHundreds > 0)
         {
             int t = totalHundreds - 1;
-<<<<<<< Updated upstream
             cycles = t / starCount;               // cycles complets dépassés
-=======
-            cycles = t / starCount;             // cycles complets dépassés
->>>>>>> Stashed changes
             localHundreds = (t % starCount) + 1; // 1..starCount
         }
         else
@@ -343,29 +324,17 @@ public class GeneratorUI : MonoBehaviour
 
             if (i < localHundreds)
             {
-<<<<<<< Updated upstream
                 // centaines complètes dans la boucle actuelle
-=======
-                // 🔴 centaines complètes dans la boucle actuelle
->>>>>>> Stashed changes
                 img.color = upgradeStarRedColor;
             }
             else if (i < localHundreds + orangeCount)
             {
-<<<<<<< Updated upstream
                 // progression par paliers de 25 dans la centaine actuelle
-=======
-                // 🟠 progression par paliers de 25 dans la centaine actuelle
->>>>>>> Stashed changes
                 img.color = upgradeStarOrangeColor;
             }
             else
             {
-<<<<<<< Updated upstream
                 // pas encore atteinte dans la boucle actuelle
-=======
-                // ⚪ pas encore atteinte dans la boucle actuelle
->>>>>>> Stashed changes
                 img.color = upgradeStarInactiveColor;
             }
         }
@@ -507,4 +476,4 @@ public class GeneratorUI : MonoBehaviour
         if (lockedText != null)
             lockedText.gameObject.SetActive(locked);
     }
-}
+} 
