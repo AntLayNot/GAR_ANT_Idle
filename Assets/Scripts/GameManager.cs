@@ -119,14 +119,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Saved.");
     }
 
+<<<<<<< Updated upstream
     /// <summary>
     /// Reset complet de la progression (monnaie, niveaux, upgrades, PlayerPrefs).
     /// NE reset pas la structure du GameManager (DontDestroyOnLoad).
     /// </summary>
+=======
+>>>>>>> Stashed changes
     public void ResetGame()
     {
         stardust = 0;
         totalStardustEarned = 0;
+<<<<<<< Updated upstream
         totalPerSecond = 0;
 
         // Reset niveaux des générateurs en mémoire + suppression des clés
@@ -134,13 +138,22 @@ public class GameManager : MonoBehaviour
         {
             if (gen == null) continue;
 
+=======
+
+        foreach (var gen in generators)
+        {
+            if (gen == null) continue;
+>>>>>>> Stashed changes
             gen.level = 0;
 
             string levelKey = $"ASTRAL_GEN_{gen.id}_LEVEL";
             PlayerPrefs.DeleteKey(levelKey);
         }
 
+<<<<<<< Updated upstream
         // Reset des upgrades globales
+=======
+>>>>>>> Stashed changes
         if (GlobalUpgradeManager.Instance != null)
         {
             foreach (var upg in GlobalUpgradeManager.Instance.upgrades)
@@ -155,11 +168,15 @@ public class GameManager : MonoBehaviour
             GlobalUpgradeManager.Instance.RecomputeMultipliers();
         }
 
+<<<<<<< Updated upstream
         // Reset des autres clés de currency / temps
+=======
+>>>>>>> Stashed changes
         PlayerPrefs.DeleteKey(StardustKey);
         PlayerPrefs.DeleteKey(TotalStardustEarnedKey);
         PlayerPrefs.DeleteKey(LastSaveKey);
         PlayerPrefs.Save();
+<<<<<<< Updated upstream
 
         Debug.Log("[GameManager] Reset du jeu effectué.");
     }
@@ -167,6 +184,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Chargement de la progression (monnaie, générateurs, offline, upgrades globales).
     /// </summary>
+=======
+    }
+
+
+
+>>>>>>> Stashed changes
     private void LoadGame()
     {
         // Chargement de la currency actuelle
@@ -201,6 +224,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+<<<<<<< Updated upstream
                 // Si aucune sauvegarde n'existe pour ce générateur, on force à 0
                 gen.level = 0;
             }
@@ -210,7 +234,15 @@ public class GameManager : MonoBehaviour
         if (GlobalUpgradeManager.Instance != null)
         {
             GlobalUpgradeManager.Instance.LoadUpgrades();
+=======
+                // s'il n'y a PAS de sauvegarde pour ce générateur, niveau 0.
+                gen.level = 0;
+            }
+>>>>>>> Stashed changes
         }
+
+
+
 
         // Offline progress
         if (PlayerPrefs.HasKey(LastSaveKey))

@@ -59,6 +59,10 @@ MonoBehaviour:
   weakMilestoneMultiplier: 1.7
   strongMilestoneInterval: 100
   strongMilestoneMultiplier: 3.4
+<<<<<<< Updated upstream
   megaMilestoneInterval: 1000
   megaMilestoneMultiplier: 10
   level: 9223
+=======
+  level: 2000
+>>>>>>> Stashed changes

@@ -54,6 +54,7 @@ public class Generator : MonoBehaviour
         // Prod linéaire de base
         double baseProd = baseProductionPerSecond * level;
 
+<<<<<<< Updated upstream
         // Multiplicateurs de milestones (25 / 100 / 1000, etc.)
         double milestoneMult = GetMilestoneMultiplier();
 
@@ -61,6 +62,16 @@ public class Generator : MonoBehaviour
         double finalProd = baseProd * milestoneMult;
 
         return finalProd;
+=======
+        double perLevelProduction = baseProductionPerSecond * (1.0 + BaseProdUpgrade / 100.0);
+        double linearProduction = perLevelProduction * level;
+
+        // Les paliers restent intéressants mais on atténue l'exponentielle avec un logarithme.
+        double milestoneMult = GetMilestoneMultiplier();
+        double dampenedMilestone = 1.0 + Math.Log10(1.0 + milestoneMult);
+
+        return linearProduction * dampenedMilestone;
+>>>>>>> Stashed changes
     }
 
 
