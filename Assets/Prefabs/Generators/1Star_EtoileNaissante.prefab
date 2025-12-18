@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 280410899719675256}
   - component: {fileID: 2783741460580034278}
   m_Layer: 0
-  m_Name: Star_EtoilePulsante
+  m_Name: 1Star_EtoileNaissante
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5311257758816196067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 745.1215, y: 478.7362, z: 0}
+  m_LocalPosition: {x: 857.8379, y: 415.64618, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,21 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4710c26ed82cec5409908f1053748532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Generator
-  id: STAR_2
-  displayName: "\xC9toile Pulsante"
-  baseProductionPerSecond: 5
+  id: STAR_1
+  displayName: "\xC9toile Naissante"
+  baseProductionPerSecond: 1
   BaseProdUpgrade: 1000
-  baseCost: 75
+  baseCost: 10
   costMultiplier: 1.08
-  unlockAtStardust: 50000
-  starSprite: {fileID: 1749425543206525934, guid: 9953161a422139442a74b8eea2071583, type: 3}
-  starColor: {r: 0.6, g: 0.8, b: 1, a: 1}
-  glowColor: {r: 0.5, g: 0.7, b: 1, a: 1}
-  glowSpeedMultiplier: 1.2
+  unlockAtStardust: 0
+  starSprite: {fileID: 460576433765418540, guid: 9953161a422139442a74b8eea2071583, type: 3}
+  starColor: {r: 1, g: 0.9, b: 0.6, a: 1}
+  glowColor: {r: 1, g: 0.9, b: 0.7, a: 1}
+  glowSpeedMultiplier: 1
   weakMilestoneInterval: 25
   weakMilestoneMultiplier: 1.7
   strongMilestoneInterval: 100
   strongMilestoneMultiplier: 3.4
   megaMilestoneInterval: 1000
   megaMilestoneMultiplier: 10
-  level: 50
+  level: 1

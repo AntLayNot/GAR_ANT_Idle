@@ -761,7 +761,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.35
+  m_fontSize: 27.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2155,8 +2155,8 @@ MonoBehaviour:
   totalStardustEarned: 0
   totalPerSecond: 0
   generators:
-  - {fileID: 2783741460580034278, guid: 8643f06dbeb796447b3cb87852b3f279, type: 3}
-  - {fileID: 2783741460580034278, guid: 6df877ce8ed3c334e9f67631d208049a, type: 3}
+  - {fileID: 1005125236}
+  - {fileID: 1621273084}
   - {fileID: 991929065}
   - {fileID: 1793925737}
   - {fileID: 1244243921}
@@ -2823,6 +2823,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4710c26ed82cec5409908f1053748532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Generator
+--- !u!114 &1005125236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2783741460580034278, guid: 8187f400a9c47ae4c8179ebfe5ea7ba9, type: 3}
+  m_PrefabInstance: {fileID: 62106459}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4710c26ed82cec5409908f1053748532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Generator
 --- !u!1 &1027407437
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,7 +3280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -214.4336, y: 0.00030517578}
+  m_AnchoredPosition: {x: -214.43347, y: 0.00036621094}
   m_SizeDelta: {x: -428.8655, y: -0.00036621}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1259773525
@@ -3905,6 +3916,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1621273084 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2783741460580034278, guid: c5760cd338ff72445a1631114341d52a, type: 3}
+  m_PrefabInstance: {fileID: 94913021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4710c26ed82cec5409908f1053748532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Generator
 --- !u!1 &1622687800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4283,7 +4305,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14.400024, y: 5.9900513}
+  m_AnchoredPosition: {x: -14.400024, y: 5.9901123}
   m_SizeDelta: {x: -219.58948, y: -207.9007}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1682908895
@@ -4451,7 +4473,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.35
+  m_fontSize: 27.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
