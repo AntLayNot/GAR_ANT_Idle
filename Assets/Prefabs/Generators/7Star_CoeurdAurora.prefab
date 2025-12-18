@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 280410899719675256}
   - component: {fileID: 2783741460580034278}
   m_Layer: 0
-  m_Name: Star_EtoileFractale
+  m_Name: 7Star_CoeurdAurora
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,17 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4710c26ed82cec5409908f1053748532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Generator
-  id: STAR_5
-  displayName: "\xC9toile Fractale"
-  baseProductionPerSecond: 230
+  id: STAR_7
+  displayName: "C\u0153ur d\u2019Aurora"
+  baseProductionPerSecond: 3500
   BaseProdUpgrade: 1000
-  baseCost: 9000
+  baseCost: 260000
   costMultiplier: 1.08
-  unlockAtStardust: 150000000
-  starSprite: {fileID: -2516058278615235330, guid: 9953161a422139442a74b8eea2071583, type: 3}
-  starColor: {r: 0.7, g: 0.9, b: 1, a: 1}
-  glowColor: {r: 0.5, g: 0.9, b: 1, a: 1}
-  glowSpeedMultiplier: 1.6
+  unlockAtStardust: 750000000000
+  starSprite: {fileID: -2560659338429825033, guid: 9953161a422139442a74b8eea2071583, type: 3}
+  starColor: {r: 0.7, g: 1, b: 1, a: 1}
+  glowColor: {r: 0.6, g: 1, b: 0.9, a: 1}
+  glowSpeedMultiplier: 1.9
   weakMilestoneInterval: 25
   weakMilestoneMultiplier: 1.7
   strongMilestoneInterval: 100

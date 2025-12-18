@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 280410899719675256}
   - component: {fileID: 2783741460580034278}
   m_Layer: 0
-  m_Name: Star_CouronnedeNeant
+  m_Name: 9Star_CouronnedeNeant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
