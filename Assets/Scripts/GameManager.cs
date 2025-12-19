@@ -307,6 +307,13 @@ public class GameManager : MonoBehaviour
         }
 
         double effectivePerSecond = sumPerSecond * globalMult * synergyMult * singularityMult;
+
+        // Pulsation Stellaires : multiplicateur actif (clic)
+        if (PulsationManager.Instance != null)
+        {
+            effectivePerSecond *= PulsationManager.Instance.GetProductionMultiplier();
+        }
+
         return effectivePerSecond;
     }
 }
