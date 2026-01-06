@@ -72,11 +72,7 @@ public class GeneratorListUI : MonoBehaviour
 
             RectTransform panelRT = panelObj.GetComponent<RectTransform>();
 
-            // IMPORTANT : anchors/pivot déjà réglés dans le prefab (0.5,1)
-            // Y : une étoile sous l'autre (négatif vers le bas)
             float y = -topPadding - i * verticalSpacing;
-
-            // X : zigzag gauche / droite
             float side = (i % 2 == 0) ? -1f : 1f;
             float x = side * xOffset + xCenterOffset;
 

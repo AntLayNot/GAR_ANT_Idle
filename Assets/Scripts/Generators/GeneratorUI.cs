@@ -13,7 +13,7 @@ public class GeneratorUI : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text productionText;
     public TMP_Text costText;
-    public Button buyButton;              // <-- bouton principal "Acheter"
+    public Button buyButton;    // <-- bouton principal "Acheter"
 
     [Header("Buy Mode Dropdown")]
     public TMP_Dropdown buyModeDropdown;
@@ -293,13 +293,13 @@ public class GeneratorUI : MonoBehaviour
 
         // On découpe en "cycles" de starCount centaines (par exemple 4)
         int cycles = 0;
-        int localHundreds = 0; // 0..starCount pour la boucle actuelle
+        int localHundreds = 0;
 
         if (totalHundreds > 0)
         {
             int t = totalHundreds - 1;
             cycles = t / starCount;               // cycles complets dépassés
-            localHundreds = (t % starCount) + 1; // 1..starCount
+            localHundreds = (t % starCount) + 1;
         }
         else
         {

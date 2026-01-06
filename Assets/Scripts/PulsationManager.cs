@@ -68,16 +68,7 @@ public class PulsationManager : MonoBehaviour
 
     [Header("Debug / UI")]
     public HitQuality lastHit = HitQuality.None;
-
-    /// <summary>
-    /// Dernier écart absolu au rythme (|dt - idealInterval|).
-    /// Utile pour placer les hit marks visuellement.
-    /// </summary>
     public float lastTimingDiff = 0f;
-
-    /// <summary>
-    /// Dernier "signed diff" (dt - idealInterval). Négatif = trop tôt, positif = trop tard.
-    /// </summary>
     public float lastTimingSignedDiff = 0f;
 
     private void Awake()
@@ -184,7 +175,7 @@ public class PulsationManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Multiplicateur de production total issu de la pulsation (incluant combo + surge).
+    /// Multiplicateur de production total issu de la pulsation.
     /// </summary>
     public double GetProductionMultiplier()
     {

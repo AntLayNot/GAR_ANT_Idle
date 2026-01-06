@@ -52,7 +52,7 @@ public class HitMarkSpawner : MonoBehaviour
             return;
 
         // Anti double-consommation sur une même frame / même clic
-        // -> on compare un timestamp rudimentaire
+        // On compare un timestamp rudimentaire
         float now = Time.unscaledTime;
         if (Mathf.Abs(now - _lastHitTime) < 0.01f && pulsation.lastHit == _lastConsumedHit)
             return;
@@ -62,8 +62,6 @@ public class HitMarkSpawner : MonoBehaviour
         _lastConsumedHit = pulsation.lastHit;
         _lastHitTime = now;
 
-        // On remet à None pour que l'UI texte (si tu en as) puisse aussi le consommer,
-        // mais si tu préfères, tu peux ne PAS reset et gérer via un event.
         pulsation.lastHit = PulsationManager.HitQuality.None;
     }
 
@@ -73,8 +71,7 @@ public class HitMarkSpawner : MonoBehaviour
 
         HitMarkUI mark = Instantiate(hitMarkPrefab, parent);
         RectTransform rt = mark.transform as RectTransform;
-
-        // Convertir diff (sec) -> offset pixels
+        
         float x = centerX + (signedDiff * pixelsPerSecond);
 
         // clamp

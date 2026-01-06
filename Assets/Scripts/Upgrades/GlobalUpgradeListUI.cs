@@ -51,7 +51,7 @@ public class GlobalUpgradeListUI : MonoBehaviour
 
             // 1) Duplique le template sous Content_Upgrades
             GlobalUpgradeUI ui = Instantiate(upgradeItemTemplate, contentParent);
-            ui.gameObject.SetActive(true); // le clone doit être actif
+            ui.gameObject.SetActive(true);
 
             // 2) Assigne l'upgrade
             ui.upgrade = upg;

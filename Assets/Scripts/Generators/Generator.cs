@@ -140,7 +140,7 @@ public class Generator : MonoBehaviour
             cost *= reductionMult;
         }
 
-        // 🔒 Sécurité anti-overflow
+        // Sécurité anti-overflow
         if (double.IsNaN(cost) || double.IsInfinity(cost))
         {
             // On considère que c'est trop cher / endgame
@@ -249,17 +249,16 @@ public class Generator : MonoBehaviour
     {
         int bought = 0;
 
-        // On essaie d'acheter "count" niveaux maximum,
-        // mais on s'arrête si on n'a plus assez de stardust.
+        // On essaie d'acheter "count" niveaux maximum, mais on s'arrête si on n'a plus assez de stardust.
         for (int i = 0; i < count; i++)
         {
-            if (!TryBuyLevel()) // utilise ta logique existante (coût, stardust, etc.)
+            if (!TryBuyLevel())
                 break;
 
             bought++;
         }
 
-        return bought; // combien de niveaux ont vraiment été achetés
+        return bought;
     }
 
     public int TryBuyMaxLevels()

@@ -25,7 +25,7 @@ public class PulsationUI : MonoBehaviour
             infoText.text = $"Combo {pm.GetCombo()}  |  x{mult:0.00}{surge}";
         }
 
-        // Feedback hit (Perfect/Good/Miss)
+        // Feedback du hit (Perfect/Good/Miss)
         if (hitText != null)
         {
             if (pm.lastHit != PulsationManager.HitQuality.None)

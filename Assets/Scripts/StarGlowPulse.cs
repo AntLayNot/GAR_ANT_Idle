@@ -34,7 +34,7 @@ public class StarGlowPulse : MonoBehaviour
     // Setup appelé UNE SEULE FOIS par GeneratorUI
     public void Setup(Color color, float speedMultiplier)
     {
-        if (isSetup) return;   // empêche les répétitions destructrices
+        if (isSetup) return;   // empêche les répétitions 
 
         if (glowImage != null)
         {

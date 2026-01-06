@@ -84,10 +84,10 @@ public class RhythmGuideUI : MonoBehaviour
             float interval = (b.customInterval > 0.01f) ? b.customInterval : defaultInterval;
             interval = Mathf.Max(0.05f, interval);
 
-            // temps décalé (phase offset)
+            // Temps décalé (phase offset)
             float t = now + b.phaseOffsetSeconds;
 
-            // détecter beat (index)
+            // Détecter le beat (index)
             float beatIndex = Mathf.Floor(t / interval);
             if (beatIndex != b.lastBeatIndex)
             {
@@ -95,22 +95,22 @@ public class RhythmGuideUI : MonoBehaviour
                 b.pulse01 = 1f; // déclenche pulse
             }
 
-            // décroissance pulse
+            // Décroissance pulse
             b.pulse01 = Mathf.MoveTowards(b.pulse01, 0f, Time.unscaledDeltaTime * beatPulseReturnSpeed);
 
-            // appliquer pulse
+            // Appliquer le pulse
             ApplyBeatPulse(b);
         }
     }
 
     private void ApplyBeatPulse(BeatEntry b)
     {
-        // scale
+        // Scale
         float targetScale = 1f + b.pulse01 * beatPulseStrength;
 
         float finalScale = targetScale;
 
-        // clamp pour rester dans le track
+        // Clamp pour rester dans le track
         if (clampToTrackHeight)
         {
             float trackH = track.rect.height;
@@ -124,7 +124,7 @@ public class RhythmGuideUI : MonoBehaviour
 
         b.beatPulse.localScale = b.baseScale * finalScale;
 
-        // alpha
+        // Alpha
         if (b.beatImage != null)
         {
             Color c = b.beatImage.color;
